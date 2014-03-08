@@ -1,10 +1,12 @@
+/******************************************************************************************
+ *
+ * Project : Tournament Branch Prediction
+ * This file is testing framework for the branch prediction.
+ *
+******************************************************************************************/
 
-
-#include <iostream>
-#include <stdio.h>
-#include <bitset>
 #include "config.h"
-#include "predictor.cc"
+#include "predictor.h"
 #include "branch_record.h"
 
 int main(){

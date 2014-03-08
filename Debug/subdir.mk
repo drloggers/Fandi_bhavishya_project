@@ -7,15 +7,18 @@ CPP_SRCS += \
 ../branch_record.cpp 
 
 CC_SRCS += \
+../global_predictor.cc \
 ../main.cc \
 ../predictor.cc 
 
 OBJS += \
 ./branch_record.o \
+./global_predictor.o \
 ./main.o \
 ./predictor.o 
 
 CC_DEPS += \
+./global_predictor.d \
 ./main.d \
 ./predictor.d 
 

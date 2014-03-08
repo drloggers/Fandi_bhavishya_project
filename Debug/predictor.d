@@ -1,4 +1,7 @@
-predictor.d: ../predictor.cc ../config.h ../branch_record.h
+predictor.d: ../predictor.cc ../predictor.h ../config.h \
+ ../branch_record.h
+
+../predictor.h:
 
 ../config.h:
 
