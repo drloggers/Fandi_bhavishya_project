@@ -5,18 +5,21 @@
 #include <bitset>
 /*****constants*****/
 #define LOCAL_HISTORY_SIZE	1024
-#define STRONGLY_TAKEN     	0b11
-#define WEAKLY_TAKEN       	0b10
-#define STRONGLY_NOT_TAKEN  0b01
-#define WEAKLY_NOT_TAKEN    0b00
+#define STRONGLY_TAKEN     	0b111
+#define WEAKLY_TAKEN       	0b100
+#define STRONGLY_NOT_TAKEN  0b000
+#define WEAKLY_NOT_TAKEN    0b011
+#define MAX_COUNTER_VAL     0b111		// strongly taken
+#define MIN_COUNTER_VAL     0b000		// strongly not taken
+#define LOCAL_HISTORY_MASK  4294966297  // made first 22 bits high to get only 10 bits
 
 /******macros*******/
-#define set(number,position)     number|=(1<<position)
-#define clear(number,position)   number&=(~(1<<position))
-#define check(number,position)   number&(1<<position)
+#define set(number,position)     (number|=(1<<position))
+#define clear(number,position)   (number&=(~(1<<position)))
+#define check(number,position)   (number&(1<<position))
 
-#define mask(number,bits)        number&=(~bits)
-#define printb(number,bits)		 {int i;int temp = number; for(i=0;i<bits;i++){if((temp&((1<<bits)-1))!=0) printf("1"); else printf("0"); temp<<=1;}}
+#define mask(number,bits)        (number&=(~bits))
+#define printb(number,bits)		 {int i;int temp = number; for(i=0;i<bits;i++){if((temp&((1<<bits)-1))!=0) printf("1"); else printf("0"); temp<<=1;}printf("\n");}
 
 
 /*********Class***********/
@@ -54,30 +57,32 @@ public:
 				localHistory[count] = WEAKLY_NOT_TAKEN;
 			}
 		}
-	int getPrediction(branch_record br_obj){
-		printf("Prediction State in history : %d \n", localHistory[mask(br_obj.instruction_addr,4294966297)]);
+	bool getPrediction(branch_record br_obj){
+		int temp_address = br_obj.instruction_addr;
+		printf("Prediction State in history : %d \n", localHistory[mask(temp_address,LOCAL_HISTORY_MASK)]);
 
-		if((br_obj.is_call || br_obj.is_return || br_obj.is_indirect) && !br_obj.is_conditional)
-			return 1;
+		if((br_obj.is_call || br_obj.is_return) && !br_obj.is_conditional)
+			return true;
 		else
-			return mask(localHistory[mask(br_obj.instruction_addr,4294966297)],0)>>1;
+			return mask(localHistory[mask(temp_address,LOCAL_HISTORY_MASK)],0b11)>>2;
 	}
 	void updatePrediction(branch_record br_obj,bool br_result){
-		char predictionState = localHistory[mask(br_obj.instruction_addr,4294966297)];
+		int temp_address = br_obj.instruction_addr;
+		char predictionState = localHistory[mask(temp_address,LOCAL_HISTORY_MASK)];
 		if(br_result){
 			predictionState++;
-			if(predictionState > 0b11)
-				predictionState = 0b11;
+			if(predictionState > MAX_COUNTER_VAL)
+				predictionState = MAX_COUNTER_VAL;
 		}
 		else{
 			predictionState--;
-			if(predictionState < 0)
-				predictionState = 0b00;
+			if(predictionState < MIN_COUNTER_VAL)
+				predictionState = MIN_COUNTER_VAL;
 		}
-		printf("prediction State of %d is %d",br_obj.instruction_addr,predictionState);
+		printf("prediction State of %d is %d",temp_address,predictionState);
 		//printb(predictionState,4);
 		printf("\n");
-		localHistory[mask(br_obj.instruction_addr,4294966297)] = predictionState;
+		localHistory[mask(temp_address,LOCAL_HISTORY_MASK)] = predictionState;
 	}
 };
 
@@ -108,7 +113,7 @@ int main(){
 
 
 
-	printf("%x %x %x %d %d %d %d %d\n",br.instruction_addr,
+	printf("\n\n %x %x %x %d %d %d %d %d\n",br.instruction_addr,
 									   br.branch_target ,
 									   br.instruction_next_addr,
 									   br.is_indirect,
@@ -121,10 +126,9 @@ int main(){
 	*/
 
 	dummy = p.getPrediction(br);
-	printf("Prediction is ");
+	printf("Prediction returned is ");
 	printb(dummy,1);
-	printf("\n");
-	p.updatePrediction(br,1);
+	p.updatePrediction(br,br.is_taken);
 
 	}
 
