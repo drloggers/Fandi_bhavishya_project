@@ -8,12 +8,11 @@ class Global_predictor
 {
 	char global_predictor_table[GLOBAL_PREDICTOR_ENTRIES-1];
 	int count;
-	unsigned short int path_history;
 	public:
 		Global_predictor();		//Constructor. Initializes predictor entries
 		~Global_predictor();
 		bool get_global_prediction(branch_record br_obj);
-		void update_global_predictor(branch_record br_obj,bool br_result);
+		void update_global_predictor(branch_record br_obj,bool taken);
 };
 
 

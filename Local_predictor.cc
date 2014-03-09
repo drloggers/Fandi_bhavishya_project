@@ -1,5 +1,5 @@
 
-#include "Local_predictor.h"
+#include "local_predictor.h"
 
 Local_predictor::Local_predictor(){
 	for(count=0;count<LOCAL_PREDICTOR_SIZE;count++){
@@ -16,28 +16,23 @@ bool Local_predictor::get_local_prediction(branch_record br_obj){
 	if(DEBUG)
 		printf("Prediction State in history : %d \n", local_predictor_table[result]);
 
-	if((br_obj.is_call || br_obj.is_return) && !br_obj.is_conditional)
-		return true;
-	else
-		return check(local_predictor_table[mask(temp_address,LOCAL_HISTORY_MASK)],2);
+	return check(local_predictor_table[mask(temp_address,LOCAL_HISTORY_MASK)],2);
 }
 
 /************************ update the local history ***********************************************/
-void Local_predictor::update_local_predictor(branch_record br_obj,bool br_result){
+void Local_predictor::update_local_predictor(branch_record br_obj,bool taken){
 	int temp_address = br_obj.instruction_addr;
 	char predictionState = local_predictor_table[mask(temp_address,LOCAL_HISTORY_MASK)];
-	if(br_result){
-		predictionState++;
-		if(predictionState > MAX_COUNTER_VAL_3b)
-			predictionState = MAX_COUNTER_VAL_3b;
+	temp_address = br_obj.instruction_addr;
+	if(taken){
+		if(predictionState < MAX_COUNTER_VAL_3b)
+			predictionState++;
 	}
 	else{
-		predictionState--;
-		if(predictionState < MIN_COUNTER_VAL_3b)
-			predictionState = MIN_COUNTER_VAL_3b;
+		if(predictionState > MIN_COUNTER_VAL_3b)
+			predictionState--;
 	}
 	if(DEBUG)
-	printf("prediction State of %d is %d",temp_address,predictionState);
-	//printb(predictionState,4);
+		printf("prediction State of %d is %d",temp_address,predictionState);
 	local_predictor_table[mask(temp_address,LOCAL_HISTORY_MASK)] = predictionState;
 }

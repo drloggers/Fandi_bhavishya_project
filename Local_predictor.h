@@ -9,8 +9,8 @@ class Local_predictor{
 	int count;
 public:
 	Local_predictor();
-	bool get_local_Prediction(branch_record br_obj);
-	void update_local_Prediction(branch_record br_obj,bool br_result);
+	bool get_local_prediction(branch_record br_obj);
+	void update_local_predictor(branch_record br_obj,bool taken);
 	~Local_predictor();
 };
 #endif /* LOCAL_PREDICTOR_H_ */
