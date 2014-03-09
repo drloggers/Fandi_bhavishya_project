@@ -5,7 +5,7 @@
 #include "branch_record.h"
 
 class Local_predictor{
-	char localHistory[LOCAL_HISTORY_SIZE];
+	char local_predictor_table[LOCAL_PREDICTOR_SIZE-1];
 	int count;
 public:
 	Local_predictor();

@@ -6,10 +6,9 @@
 
 class Global_predictor
 {
-	char globalHistory[GLOBAL_HISTORY_ENTRIES-1];
+	char global_predictor_table[GLOBAL_PREDICTOR_ENTRIES-1];
 	int count;
 	unsigned short int path_history;
-
 	public:
 		Global_predictor();		//Constructor. Initializes predictor entries
 		~Global_predictor();
