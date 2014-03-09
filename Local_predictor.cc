@@ -10,20 +10,21 @@ Local_predictor::~Local_predictor(){
 
 }
 /********************** returns the predicted values *****************************/
-bool Local_predictor::get_local_prediction(branch_record br_obj){
-	int temp_address = br_obj.instruction_addr;
+bool Local_predictor::get_local_prediction(const branch_record_c* br_obj){
+	int temp_address = br_obj->instruction_addr;
 	int result = mask(temp_address,LOCAL_HISTORY_MASK);
+	temp_address = br_obj->instruction_addr;
 	if(DEBUG)
-		printf("Prediction State in history : %d \n", local_predictor_table[result]);
+		printf("Prediction State in local history : %d \n", local_predictor_table[result]);
 
 	return check(local_predictor_table[mask(temp_address,LOCAL_HISTORY_MASK)],2);
 }
 
 /************************ update the local history ***********************************************/
-void Local_predictor::update_local_predictor(branch_record br_obj,bool taken){
-	int temp_address = br_obj.instruction_addr;
+void Local_predictor::update_local_predictor(const branch_record_c* br_obj,bool taken){
+	int temp_address = br_obj->instruction_addr;
 	char predictionState = local_predictor_table[mask(temp_address,LOCAL_HISTORY_MASK)];
-	temp_address = br_obj.instruction_addr;
+	temp_address = br_obj->instruction_addr;
 	if(taken){
 		if(predictionState < MAX_COUNTER_VAL_3b)
 			predictionState++;
@@ -33,6 +34,6 @@ void Local_predictor::update_local_predictor(branch_record br_obj,bool taken){
 			predictionState--;
 	}
 	if(DEBUG)
-		printf("prediction State of %d is %d",temp_address,predictionState);
+		printf("Updated prediction State of local history at %d is %d\n",temp_address,predictionState);
 	local_predictor_table[mask(temp_address,LOCAL_HISTORY_MASK)] = predictionState;
 }

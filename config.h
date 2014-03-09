@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <bitset>
+#include "branch_record.h"
 
 /*****constants*****/
 #define DEBUG 						1

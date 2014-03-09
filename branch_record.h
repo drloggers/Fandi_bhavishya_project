@@ -2,7 +2,7 @@
 #define BRANCHRECORD_H_
 
 /*********Class***********/
-class branch_record
+class branch_record_c
 {
 public:
     unsigned int   instruction_addr;       // the branch's PC (program counter)
@@ -14,8 +14,8 @@ public:
     bool   is_return;              // true if the branch is a return; false otherwise
     bool   is_taken;
 
-    branch_record();
-    ~branch_record();
+    branch_record_c();
+    ~branch_record_c();
 };
 
 #endif /* BRANCHRECORD_H_ */

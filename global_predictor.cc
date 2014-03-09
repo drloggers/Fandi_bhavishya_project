@@ -16,17 +16,15 @@ Global_predictor::~Global_predictor(){
 }
 
 /**************** returns the prediction of global predictor ************************/
-bool Global_predictor::get_global_prediction(branch_record br_obj){
-	Path_history ph;
+bool Global_predictor::get_global_prediction(const branch_record_c* br_obj,Path_history* ph){
 	if(DEBUG)
-		printf("Prediction State in Global History : %d \n", global_predictor_table[ph.get_path_history()]);
-	return (check(global_predictor_table[ph.get_path_history()],1));
+		printf("Prediction State in Global History : %d \n", global_predictor_table[ph->get_path_history()]);
+	return (check(global_predictor_table[ph->get_path_history()],1));
 }
 
 /**************** updates the global history ***************************************/
-void Global_predictor::update_global_predictor(branch_record br_obj,bool taken){
-	Path_history ph;
-	char global_predictionState = global_predictor_table[ph.get_path_history()];
+void Global_predictor::update_global_predictor(const branch_record_c* br_obj,Path_history* ph,bool taken){
+	char global_predictionState = global_predictor_table[ph->get_path_history()];
 	if(taken){
 		if(global_predictionState < MAX_COUNTER_VAL_2b)
 			global_predictionState++;
@@ -38,11 +36,11 @@ void Global_predictor::update_global_predictor(branch_record br_obj,bool taken){
 
 	}
 	if(DEBUG)
-		printf("Updated global prediction State of %d is %d\n",ph.get_path_history(),global_predictionState);
+		printf("Updated global prediction State of %d is %d\n",ph->get_path_history(),global_predictionState);
 
-		global_predictor_table[ph.get_path_history()] = global_predictionState;
+		global_predictor_table[ph->get_path_history()] = global_predictionState;
 		if(DEBUG)
-			printb(ph.get_path_history(),12);
+			printb(ph->get_path_history(),12);
 }
 
 

@@ -15,12 +15,17 @@
 
 
 int main(){
-	branch_record br;
-	Predictor p;
+	/********************** initializing for testing purpose **********************/
+	branch_record_c br;
+	op_state_c os;
+	PREDICTOR p;
+	FILE *traceFile;
+
+
 /*	Local_predictor lp;
 	Global_predictor gp;
 	Chooser_predictor cp;*/
-	FILE *traceFile;
+
 	unsigned int dummy,indirect,conditional,call,return1,taken;
 	traceFile = fopen("tracefile.txt","r");
 	printf("trace File reading.......\n");
@@ -54,11 +59,11 @@ int main(){
 									   	    br.is_taken);
 
 /*********** Calling Local predictor ***********/
-	dummy = p.get_prediction(br);
+	dummy = p.get_prediction(&br,&os);
 	if(DEBUG)
 		printf("Prediction returned is ");
 	printb(dummy,1);
-	p.update_predictor(br,br.is_taken);
+	p.update_predictor(&br,&os, br.is_taken);
 /**********************************************/
 	}// end of while
 	printf("\nTrace File end.");

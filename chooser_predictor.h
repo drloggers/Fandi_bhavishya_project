@@ -1,15 +1,9 @@
-/*
- * chooser_predictor.h
- *
- *  Created on: Mar 8, 2014
- *      Author: sanket
- */
 
 #ifndef CHOOSER_PREDICTOR_H_
 #define CHOOSER_PREDICTOR_H_
 
 #include "config.h"
-#include "branch_record.h"
+#include "path_history.h"
 
 class Chooser_predictor
 {
@@ -18,8 +12,8 @@ class Chooser_predictor
 	public:
 		Chooser_predictor();		//Constructor. Initializes predictor entries
 		~Chooser_predictor();
-		bool get_chooser_prediction(branch_record br_obj);
-		void update_chooser_predictor(branch_record br_obj,bool taken);
+		bool get_chooser_prediction(const branch_record_c* br_obj,Path_history* ph);
+		void update_chooser_predictor(const branch_record_c* br_obj,Path_history* ph,bool taken);
 };
 
 

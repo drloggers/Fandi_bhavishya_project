@@ -2,7 +2,7 @@
 #ifndef GLOBAL_PREDICTOR_H_
 #define GLOBAL_PREDICTOR_H_
 #include "config.h"
-#include "branch_record.h"
+#include "path_history.h"
 
 class Global_predictor
 {
@@ -11,8 +11,8 @@ class Global_predictor
 	public:
 		Global_predictor();		//Constructor. Initializes predictor entries
 		~Global_predictor();
-		bool get_global_prediction(branch_record br_obj);
-		void update_global_predictor(branch_record br_obj,bool taken);
+		bool get_global_prediction(const branch_record_c* br_obj,Path_history* ph);
+		void update_global_predictor(const branch_record_c* br_obj,Path_history* ph,bool taken);
 };
 
 
