@@ -43,7 +43,7 @@ all: tournament_prediction
 tournament_prediction: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++  -o "tournament_prediction" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++  -o"tournament_prediction" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -1,10 +1,12 @@
-
+#include <iostream>
 #include "Global_predictor.h"
+
+
 
 Global_predictor::Global_predictor(){
 			 for(count=0;count<GLOBAL_HISTORY_ENTRIES;count++)
 				{
-					globalHistory[count] = WEAKLY_NOT_TAKEN;
+					globalHistory[count] = 0b01;
 				}
 			path_history=0;		//Initialize path history to 0. None of the previous branches taken.
 }
@@ -26,22 +28,26 @@ bool Global_predictor::get_global_prediction(branch_record br_obj){
 /**************** updates the global history ***************************************/
 void Global_predictor::update_global_predictor(branch_record br_obj,bool br_result){
 	char global_predictionState = globalHistory[path_history];
+	unsigned short int temp_path_history = path_history;
+	path_history = path_history << 1;
 	if(br_result){
 		global_predictionState++;
 		if(global_predictionState > MAX_GLOBAL_COUNTER_VAL)
 		global_predictionState = MAX_GLOBAL_COUNTER_VAL;
+		set(path_history,0);
 	}
 	else{
 		global_predictionState--;
 		if(global_predictionState < MIN_GLOBAL_COUNTER_VAL)
 			global_predictionState = MIN_GLOBAL_COUNTER_VAL;
+		clear(path_history,0);
 	}
+	mask(path_history,GLOBAL_HISTORY_MASK);
 	if(DEBUG)
 		printf("Updated global prediction State of %d is %d\n",path_history,global_predictionState);
-		globalHistory[path_history] = global_predictionState;
-		path_history = path_history << 1;
-		set(path_history,1);
-		mask(path_history,GLOBAL_HISTORY_MASK);
+
+		globalHistory[temp_path_history] = global_predictionState;
+		printb(path_history,12);
 }
 
 

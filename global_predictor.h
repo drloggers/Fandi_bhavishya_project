@@ -2,7 +2,7 @@
 #ifndef GLOBAL_PREDICTOR_H_
 #define GLOBAL_PREDICTOR_H_
 #include "config.h"
-#include "Branch_record.h"
+#include "branch_record.h"
 
 class Global_predictor
 {

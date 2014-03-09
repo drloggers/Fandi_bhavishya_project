@@ -26,7 +26,6 @@
 #define check(number,position)   (number&(1<<position))
 
 #define mask(number,bits)        (number&=(~bits))
-#define printb(number,bits)		 {int i;int temp = number; for(i=0;i<bits;i++){if((temp&((1<<bits)-1))!=0) printf("1"); else printf("0"); temp<<=1;}printf("\n");}
-
+#define printb(number,bits)      {int i;for(i=bits-1;i>=0;i--){if(check(number,i)) printf("1");else printf("0");}printf("\n");}
 
 

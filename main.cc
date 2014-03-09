@@ -7,13 +7,17 @@
 
 #include "config.h"
 #include "Local_predictor.h"
-#include "Branch_record.h"
+#include "Global_predictor.h"
+#include "branch_record.h"
+
+
 
 int main(){
 	branch_record br;
 	Local_predictor p;
+	Global_predictor gp;
 	FILE *traceFile;
-	int dummy,indirect,conditional,call,return1,taken;
+	unsigned int dummy,indirect,conditional,call,return1,taken;
 	traceFile = fopen("tracefile.txt","r");
 	printf("trace File reading.......\n");
 	while(!feof(traceFile)){
@@ -46,11 +50,11 @@ int main(){
 									   	    br.is_taken);
 
 /*********** Calling Local predictor ***********/
-	dummy = p.get_local_Prediction(br);
+	dummy = gp.get_global_prediction(br);
 	if(DEBUG)
 		printf("Prediction returned is ");
-	printb(dummy,1);
-	p.update_local_Prediction(br,br.is_taken);
+//	printb(dummy,1);
+	gp.update_global_predictor(br,br.is_taken);
 /**********************************************/
 	}// end of while
 	printf("\nTrace File end.");

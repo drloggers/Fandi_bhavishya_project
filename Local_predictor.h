@@ -2,7 +2,7 @@
 #ifndef LOCAL_PREDICTOR_H_
 #define LOCAL_PREDICTOR_H_
 #include "config.h"
-#include "Branch_record.h"
+#include "branch_record.h"
 
 class Local_predictor{
 	char localHistory[LOCAL_HISTORY_SIZE];
