@@ -1,6 +1,6 @@
 
-#include "branch_record.h"
-
+#include "Branch_record.h"
+/********* Constructor **************/
 branch_record::branch_record() {
 	        instruction_addr      = 0x0;
 	        branch_target         = 0x0;
