@@ -30,9 +30,11 @@
 #define MIN_COUNTER_VAL_2b     	    0b00		// strongly not taken
 
 //Masks
-#define LOCAL_HISTORY_MASK  		0xFFFFF003  // made first 22 bits high to get only 10 bits
+#define LOCAL_HISTORY_MASK_11_2  	0xFFFFF003  // made first 22 bits high to get only 10 bits
 #define PATH_HISTORY_MASK  			0xF000	//Masks upper 4 bits of unsigned short int to obtain 12 bits.
 #define GLOBAL_MASK					0xFFFFF000
+#define LOCAL_HISTORY_MASK_9_0  	0xFFFFFC00  // made first 22 bits high to get only 10 bits
+
 
 #define PATH_HISTORY_LENGTH 		12
 

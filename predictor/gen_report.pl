@@ -4,16 +4,16 @@
 # Description: Script for generating a report of the mispredict rates.
 
 if (-1 == $#ARGV) {
-    $trace_type = 'without-values';
+   # $trace_type = 'without-values';
 }
 elsif ((0 == $#ARGV) && ('with-values' eq $ARGV[0])) {
-    $trace_type = 'with-values';
+   # $trace_type = 'with-values';
 }
 elsif ((0 == $#ARGV) && ('without-values' eq $ARGV[0])) {
-    $trace_type = 'without-values';
+   # $trace_type = 'without-values';
 }
 else {
-    die qq{usage: $0 [ with-values | without-values ]\n};
+   # die qq{usage: $0 [ with-values | without-values ]\n};
 }
 
 @trace_list = (
@@ -41,7 +41,7 @@ else {
 
 foreach $trace (@trace_list) {
     print $trace, "\n";
-    $output = `./predictor traces/$trace_type/$trace`;
+    $output = `./predictor traces/$trace`;
     print $output;
     print "\n";
 }

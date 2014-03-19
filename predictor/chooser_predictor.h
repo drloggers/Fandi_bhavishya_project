@@ -16,6 +16,4 @@ class Chooser_predictor
 		void update_chooser_predictor(const branch_record_c* br_obj,Path_history* ph,bool taken);
 };
 
-
-
 #endif /* CHOOSER_PREDICTOR_H_ */

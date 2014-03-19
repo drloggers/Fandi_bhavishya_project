@@ -12,6 +12,9 @@
 #include "chooser_predictor.h"
 #include "predictor.h"
 
+bool test(){
+	return (check(0x01,1));
+}
 
 
 int main(){
@@ -67,6 +70,15 @@ int main(){
 /**********************************************/
 	}// end of while
 	printf("\nTrace File end.");
+	dummy = 0x02;
+	printf("\nxor thing :");
+	printf("%d",check(dummy,1));
+	printf("\nxor thing :");
+	printb((check(dummy,1)),2);
+	printf("\nxor thing :");
+	printb((check(dummy,2)),1);
+
+	printf("%d",test());
 	return 0;
 }
 

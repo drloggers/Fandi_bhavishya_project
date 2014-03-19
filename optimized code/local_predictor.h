@@ -4,6 +4,7 @@
 #include "config.h"
 
 class Local_predictor{
+private:
 	char local_predictor_table[LOCAL_PREDICTOR_SIZE-1];
 	int count;
 public:

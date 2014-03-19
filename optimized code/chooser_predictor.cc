@@ -37,12 +37,11 @@ void Chooser_predictor::update_chooser_predictor(const branch_record_c *br_obj,P
 
 	}
 
-	if(DEBUG)
+	if(DEBUG){
 		printf("Updated chooser prediction State of %d is %d\n",ph->get_path_history(),chooser_predictionState);
-
-	chooser_predictor_table[ph->get_path_history()] = chooser_predictionState;
-	if(DEBUG)
 		printb(ph->get_path_history(),12);
+	}
+	chooser_predictor_table[ph->get_path_history()] = chooser_predictionState;
 }
 
 

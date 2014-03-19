@@ -17,7 +17,6 @@ PREDICTOR::PREDICTOR(){
 PREDICTOR::~PREDICTOR(){
 
 }
-
     bool PREDICTOR::get_prediction(const branch_record_c* br, const op_state_c* os)
         {
     	if((br->is_call || br->is_return) && !br->is_conditional)
@@ -35,14 +34,13 @@ PREDICTOR::~PREDICTOR(){
 }
     void PREDICTOR::update_predictor(const branch_record_c* br, const op_state_c* os, bool taken)
         {
-    	if((lp.get_local_prediction(br) == taken) && (gp.get_global_prediction(br,&ph) != taken))
+    		if((lp.get_local_prediction(br) == taken) && (gp.get_global_prediction(br,&ph) != taken))
     			cp.update_chooser_predictor(br,&ph,1);			// choose local
-    	if((gp.get_global_prediction(br,&ph) == taken) && (lp.get_local_prediction(br) != taken))
+    		if((gp.get_global_prediction(br,&ph) == taken) && (lp.get_local_prediction(br) != taken))
     			cp.update_chooser_predictor(br,&ph,0);			// choose global
     		// else no change in chooser predictor
 
     		lp.update_local_predictor(br,taken);
     		gp.update_global_predictor(br,&ph,taken);
     		ph.update_path_history(taken);
-
         }

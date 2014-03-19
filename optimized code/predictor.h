@@ -2,11 +2,17 @@
 #ifndef PREDICTOR_H_
 #define PREDICTOR_H_
 
-#include "config.h"
+
 #include "op_state.h"
+#include "config.h"
+#include "local_predictor.h"
+#include "global_predictor.h"
+#include "chooser_predictor.h"
+#include "path_history.h"
 
 class PREDICTOR
 {
+private:
 	unsigned short int path_history;
 public:
 	PREDICTOR();		//Constructor. Initializes predictor entries

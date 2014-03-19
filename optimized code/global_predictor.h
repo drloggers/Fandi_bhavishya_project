@@ -6,6 +6,7 @@
 
 class Global_predictor
 {
+private:
 	char global_predictor_table[GLOBAL_PREDICTOR_ENTRIES-1];
 	int count;
 	public:

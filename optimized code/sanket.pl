@@ -1,21 +1,4 @@
-#!/usr/bin/env perl
-
-# Author: Jared Stark;   Created: Mon Aug 16 11:38:57 PDT 2004
-# Description: Script for generating a report of the mispredict rates.
-
-if (-1 == $#ARGV) {
-   # $trace_type = 'without-values';
-}
-elsif ((0 == $#ARGV) && ('with-values' eq $ARGV[0])) {
-   # $trace_type = 'with-values';
-}
-elsif ((0 == $#ARGV) && ('without-values' eq $ARGV[0])) {
-   # $trace_type = 'without-values';
-}
-else {
-   # die qq{usage: $0 [ with-values | without-values ]\n};
-}
-
+#sanket perl file for report generation
 @trace_list = (
     'DIST-FP-1',
     'DIST-FP-2',

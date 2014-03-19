@@ -7,7 +7,8 @@
 Global_predictor::Global_predictor(){
 			 for(count=0;count<GLOBAL_PREDICTOR_ENTRIES;count++)
 				{
-					global_predictor_table[count] = WEAKLY_NOT_TAKEN_2b;
+					//global_predictor_table[count] = WEAKLY_NOT_TAKEN_2b;
+				 	 global_predictor_table[count] = -1;
 				}
 }
 
@@ -17,9 +18,17 @@ Global_predictor::~Global_predictor(){
 
 /**************** returns the prediction of global predictor ************************/
 bool Global_predictor::get_global_prediction(const branch_record_c* br_obj,Path_history* ph){
+	bool prediction = (check(global_predictor_table[ph->get_path_history()],1));
 	if(DEBUG)
 		printf("Prediction State in Global History : %d \n", global_predictor_table[ph->get_path_history()]);
-	return (check(global_predictor_table[ph->get_path_history()],1));
+	if(prediction == -1){
+		if(br_obj->branch_target > br_obj->instruction_addr)
+			return false;
+		else
+			return true;
+	}
+	else
+		return prediction;
 }
 
 /**************** updates the global history ***************************************/
